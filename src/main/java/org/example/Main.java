@@ -101,9 +101,10 @@ public class Main {
         String numbers = "0123456789";
         String letters = "abcdefghijklmnopqrstuvwxyz";
         String specialChars = "!§$%&/()=?";
+        int zufallsL = random.nextInt(24) + 8;
 
         // Ein Array für das Passwort erstellen
-        char[] pwdArray = new char[8];
+        char[] pwdArray = new char[zufallsL];
 
         // Ein Zeichen aus jeder der vier Kategorien hinzufügen
         pwdArray[0] = numbers.charAt(random.nextInt(numbers.length()));
@@ -112,7 +113,7 @@ public class Main {
         pwdArray[3] = specialChars.charAt(random.nextInt(specialChars.length()));
 
         // Die restlichen Zeichen zufällig generieren
-        for (int i = 4; i < 8; i++) {
+        for (int i = 4; i < zufallsL; i++) {
             int choice = random.nextInt(4);
             switch (choice) {
                 case 0:
