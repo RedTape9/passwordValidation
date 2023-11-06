@@ -101,42 +101,47 @@ public class Main {
         String numbers = "0123456789";
         String letters = "abcdefghijklmnopqrstuvwxyz";
         String specialChars = "!§$%&/()=?";
-        ArrayList<Character> pwdList = new ArrayList<>();
+
+        // Ein Array für das Passwort erstellen
+        char[] pwdArray = new char[8];
 
         // Ein Zeichen aus jeder der vier Kategorien hinzufügen
-        pwdList.add(numbers.charAt(random.nextInt(numbers.length())));
-        pwdList.add(letters.charAt(random.nextInt(letters.length())));
-        pwdList.add(letters.toUpperCase().charAt(random.nextInt(letters.length())));
-        pwdList.add(specialChars.charAt(random.nextInt(specialChars.length())));
+        pwdArray[0] = numbers.charAt(random.nextInt(numbers.length()));
+        pwdArray[1] = letters.charAt(random.nextInt(letters.length()));
+        pwdArray[2] = letters.toUpperCase().charAt(random.nextInt(letters.length()));
+        pwdArray[3] = specialChars.charAt(random.nextInt(specialChars.length()));
 
         // Die restlichen Zeichen zufällig generieren
         for (int i = 4; i < 8; i++) {
             int choice = random.nextInt(4);
             switch (choice) {
                 case 0:
-                    pwdList.add(numbers.charAt(random.nextInt(numbers.length())));
+                    pwdArray[i] = numbers.charAt(random.nextInt(numbers.length()));
                     break;
                 case 1:
-                    pwdList.add(letters.charAt(random.nextInt(letters.length())));
+                    pwdArray[i] = letters.charAt(random.nextInt(letters.length()));
                     break;
                 case 2:
-                    pwdList.add(letters.toUpperCase().charAt(random.nextInt(letters.length())));
+                    pwdArray[i] = letters.toUpperCase().charAt(random.nextInt(letters.length()));
                     break;
                 case 3:
-                    pwdList.add(specialChars.charAt(random.nextInt(specialChars.length())));
+                    pwdArray[i] = specialChars.charAt(random.nextInt(specialChars.length()));
                     break;
             }
         }
 
-        // Die Zeichen des Passworts mischen
-        Collections.shuffle(pwdList);
-
-        // ArrayList<Character> in String konvertieren
-        StringBuilder pwd = new StringBuilder(pwdList.size());
-        for (Character ch : pwdList) {
-            pwd.append(ch);
+        // Die Zeichen des Passworts mischen mit der Fisher-Yates-Methode
+        for (int i = 0; i < pwdArray.length; i++) {
+            int randomIndex = random.nextInt(pwdArray.length);
+            char temp = pwdArray[i];
+            pwdArray[i] = pwdArray[randomIndex];
+            pwdArray[randomIndex] = temp;
         }
 
-        return pwd.toString();
+        // Char-Array in String konvertieren
+        String pwd = new String(pwdArray);
+
+        return pwd;
     }
+
 }
